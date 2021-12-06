@@ -32,9 +32,20 @@ public class Board {
 	public Piece piece(int row, int coloumn) {
 		return pieces[row][coloumn];
 	}
-	
+
 	public Piece piece(Position position) {
 		return pieces[position.getRow()][position.getColumn()];
+	}
+
+	// Metodo responsavel para colocar uma peça no taboleiro, onde vai receber uma
+	// peça e a posição
+	public void placePiece(Piece piece, Position position) {
+		// A posição da linha e coluna da matriz pieces irá receber a piece declarada no
+		// metodo placePiece
+		pieces[position.getRow()][position.getColumn()] = piece;
+		// A antiga posição da peça irá receber a posição recebida no metodo placePiece
+		piece.position = position;
+
 	}
 
 }
