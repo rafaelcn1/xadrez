@@ -1,7 +1,5 @@
 package chess;
 
-import java.util.Iterator;
-
 import boardgame.Board;
 
 public class ChessMatch {
