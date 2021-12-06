@@ -43,7 +43,8 @@ public class Board {
 	public void placePiece(Piece piece, Position position) {
 		// Testando se existe uma peça na posição recebida;
 		if (therelsAPiece(position)) {
-			throw new BoardException("Já existe uma peça nessa posição! " + position);
+			throw new BoardException("Já existe uma peça nessa posição! (Linha: " + position.getRow() + ", Coluna: "
+					+ position.getColumn() + ")");
 		}
 
 		// A posição da linha e coluna da matriz pieces irá receber a piece declarada no
