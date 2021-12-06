@@ -48,4 +48,20 @@ public class Board {
 
 	}
 
+	// Metodo para testar se uma posição existe por uma linha e pela coluna
+	public boolean positionExists(int row, int column) {
+		return row >= 0 && row <= rows && column >= 0 && column < columns;
+	}
+
+	public boolean positionExists(Position position) {
+		// Retornando o metado de cima, para testar se uma posição existe;
+		return positionExists(position.getRow(), position.getColumn());
+	}
+
+	// MEtodo para testar se a peça existe, caso a piece(position) for diferente de
+	// nulo, é porque existe uma peça
+	public boolean therelsAPiece(Position position) {
+		return piece(position) != null;
+	}
+
 }
