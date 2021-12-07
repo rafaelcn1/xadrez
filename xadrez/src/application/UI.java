@@ -33,6 +33,13 @@ public class UI {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+	
+	
+	//Metodo para limpar a tela
+	public static void clearScreen() {
+		System.out.println("\033[H\033[2J");
+		System.out.flush();
+	}
 
 	// Metodo para lê a posição da peça
 	public static ChessPosition readChessPostion(Scanner sc) {
@@ -42,7 +49,7 @@ public class UI {
 			int row = Integer.parseInt(s.substring(1));
 			return new ChessPosition(column, row);
 		} catch (RuntimeException e) {
-			throw new InputMismatchException("Erro a ler a posição! Favor informar de A1 a H8!");
+			throw new InputMismatchException("Erro a ler a posicao! Favor informar de A1 a H8!");
 		}
 
 	}
