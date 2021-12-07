@@ -74,4 +74,20 @@ public class Board {
 		return piece(position) != null;
 	}
 
+	public Piece removePiece(Position position) {
+		if (!positionExists(position)) {
+			throw new BoardException("Posição não existe no tabuleiro!");
+		}
+
+		if (piece(position) == null) {
+			return null;
+		}
+		// Salvando a peça da oisição informada em uma var auxiliar
+		Piece aux = piece(position);
+
+		// Na matrix de peças na posição informada vai receber null, onde irá remover
+		pieces[position.getRow()][position.getColumn()] = null;
+		return aux;
+	}
+
 }
