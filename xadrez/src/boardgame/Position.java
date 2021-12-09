@@ -8,6 +8,8 @@ public class Position {
 	private int column; // coluna
 
 	public void setValues(int row, int column) {
+		this.row = row;
+		this.column = column;
 
 	}
 

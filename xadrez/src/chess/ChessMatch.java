@@ -32,7 +32,8 @@ public class ChessMatch {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		// validando a poção
-		validadeSourcePosition(source);
+		validateSourcePosition(source);
+		validateTargetPosition(source, target);
 		// Capturar a peça
 		Piece capturePiece = makeMove(source, target);
 		return (ChessPiece) capturePiece;
@@ -41,7 +42,16 @@ public class ChessMatch {
 
 	
 
-	public void validadeSourcePosition(Position position) {
+	private void validateTargetPosition(Position source, Position target) {
+		// TODO Auto-generated method stub
+		// Se não existe um possivel movimento, da peça de origem para o destino, não vai poder mover.
+		if(!board.piece(source).possibleMove(target)) {
+			throw new ChessException("O movimento da peca de origem nao pode ser movido para o destino!");
+		}
+		
+	}
+
+	public void validateSourcePosition(Position position) {
 		if (!board.therelsAPiece(position)) {
 			throw new ChessException("Nao existe peca na posicao de origem!");
 		}
