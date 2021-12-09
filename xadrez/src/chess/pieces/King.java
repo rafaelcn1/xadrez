@@ -18,4 +18,11 @@ public class King extends ChessPiece {
 		return "K";
 	}
 
+	//Metodo de possiveis movimentos da peça, no caso Rei
+		@Override
+		public boolean[][] possibleMoves() {
+			// TODO Auto-generated method stub
+			boolean[][] matrizTemp = new boolean[getBoard().getRows()][getBoard().getColumns()];
+			return matrizTemp;
+		}
 }

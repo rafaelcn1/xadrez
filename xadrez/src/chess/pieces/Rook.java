@@ -17,4 +17,12 @@ public class Rook extends ChessPiece {
 		return "R";
 	}
 
+	//Metodo de possiveis movimentos da peça, no caso Torre
+	@Override
+	public boolean[][] possibleMoves() {
+		// TODO Auto-generated method stub
+		boolean[][] matrizTemp = new boolean[getBoard().getRows()][getBoard().getColumns()];
+		return matrizTemp;
+	}
+
 }
