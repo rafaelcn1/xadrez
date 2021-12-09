@@ -26,7 +26,8 @@ public class Rook extends ChessPiece {
 		Position posicaoTemp = new Position(0, 0);
 
 		// Setar a posi da peça, na posição temporaria
-		// Checar posições acima
+
+		// Inicio da checagem posições e movimentar para cima
 		posicaoTemp.setValues(position.getRow() - 1, position.getColumn());
 
 		while (getBoard().positionExists(posicaoTemp) && !getBoard().therelsAPiece(posicaoTemp)) {
@@ -39,13 +40,14 @@ public class Rook extends ChessPiece {
 		if (getBoard().positionExists(posicaoTemp) && isThereOpponentPiece(posicaoTemp)) {
 			matrizTemp[posicaoTemp.getRow()][posicaoTemp.getColumn()] = true;
 		}
+		// Fim da checagem posições e movimentar para cima
 
-		// Checar posições para abaixo
+		// Inicio da checagem posições e movimentar para baixo
 		posicaoTemp.setValues(position.getRow() + 1, position.getColumn());
 
 		while (getBoard().positionExists(posicaoTemp) && !getBoard().therelsAPiece(posicaoTemp)) {
 			matrizTemp[posicaoTemp.getRow()][posicaoTemp.getColumn()] = true;
-			// Fazer a linha descer mais uma posição para cima.
+			// Fazer a linha subir mais uma posição para cima.
 			posicaoTemp.setRow(posicaoTemp.getRow() + 1);
 		}
 
@@ -53,8 +55,9 @@ public class Rook extends ChessPiece {
 		if (getBoard().positionExists(posicaoTemp) && isThereOpponentPiece(posicaoTemp)) {
 			matrizTemp[posicaoTemp.getRow()][posicaoTemp.getColumn()] = true;
 		}
+		// Fim da checagem posições e movimentar para cima
 
-		// Checar posições para a esquerda!
+		// Inicio da checagem posições e movimentar a esquerda!
 		posicaoTemp.setValues(position.getRow(), position.getColumn() - 1);
 
 		while (getBoard().positionExists(posicaoTemp) && !getBoard().therelsAPiece(posicaoTemp)) {
@@ -68,7 +71,9 @@ public class Rook extends ChessPiece {
 			matrizTemp[posicaoTemp.getRow()][posicaoTemp.getColumn()] = true;
 		}
 
-		// Checar posições para a direita!
+		// Fim da checagem posições e movimentar a esquerda!
+
+		// Inicio da checagem posições e movimentar a direita!
 		posicaoTemp.setValues(position.getRow(), position.getColumn() + 1);
 
 		while (getBoard().positionExists(posicaoTemp) && !getBoard().therelsAPiece(posicaoTemp)) {
@@ -81,7 +86,7 @@ public class Rook extends ChessPiece {
 		if (getBoard().positionExists(posicaoTemp) && isThereOpponentPiece(posicaoTemp)) {
 			matrizTemp[posicaoTemp.getRow()][posicaoTemp.getColumn()] = true;
 		}
-
+		// Fim da checagem posições e movimentar a esquerda!
 		return matrizTemp;
 	}
 
