@@ -39,12 +39,15 @@ public class ChessMatch {
 
 	}
 
+	
+
 	public void validadeSourcePosition(Position position) {
 		if (!board.therelsAPiece(position)) {
 			throw new ChessException("Nao existe peca na posicao de origem!");
 		}
-		//Acessando a peça do tabuleiro e chamando o metodo boolean para checar se existe possibilidade de mover ou não
-		if(!board.piece(position).isThereAnyPossibleMove()) {
+		// Acessando a peça do tabuleiro e chamando o metodo boolean para checar se
+		// existe possibilidade de mover ou não
+		if (!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("Nao existe movimentacao possivel para a peca escolhida!");
 		}
 	}
