@@ -1,7 +1,6 @@
 package chess.pieces;
 
 import boardgame.Board;
-import boardgame.Piece;
 import boardgame.Position;
 import chess.ChessPiece;
 import chess.Color;
@@ -61,6 +60,38 @@ public class King extends ChessPiece {
 
 		// direita
 		p.setValues(position.getRow(), position.getColumn() + 1);
+
+		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
+		if (getBoard().positionExists(p) && canMove(p)) {
+			matrizTemp[p.getRow()][p.getColumn()] = true;
+		}
+
+		// diagonal pra cima a esquerda
+		p.setValues(position.getRow() - 1, position.getColumn() - 1);
+
+		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
+		if (getBoard().positionExists(p) && canMove(p)) {
+			matrizTemp[p.getRow()][p.getColumn()] = true;
+		}
+
+		// diagonal pra cima a direita
+		p.setValues(position.getRow() - 1, position.getColumn() + 1);
+
+		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
+		if (getBoard().positionExists(p) && canMove(p)) {
+			matrizTemp[p.getRow()][p.getColumn()] = true;
+		}
+
+		// diagonal pra baixo a esquerda
+		p.setValues(position.getRow() + 1, position.getColumn() - 1);
+
+		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
+		if (getBoard().positionExists(p) && canMove(p)) {
+			matrizTemp[p.getRow()][p.getColumn()] = true;
+		}
+
+		// diagonal pra baixo a direita
+		p.setValues(position.getRow() + 1, position.getColumn() + 1);
 
 		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
 		if (getBoard().positionExists(p) && canMove(p)) {
