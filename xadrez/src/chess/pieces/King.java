@@ -1,4 +1,4 @@
- package chess.pieces;
+package chess.pieces;
 
 import boardgame.Board;
 import boardgame.Piece;
@@ -19,18 +19,30 @@ public class King extends ChessPiece {
 	public String toString() {
 		return "K";
 	}
-	
-	//Metodo para verificar se a peça do rei é diferente de nula e a cor diferente do adversario
+
+	// Metodo para verificar se a peça do rei é diferente de nula e a cor diferente
+	// do adversario
 	public boolean canMove(Position position) {
 		ChessPiece piece = (ChessPiece) getBoard().piece(position);
 		return piece != null && piece.getColor() != getColor();
 	}
 
-	//Metodo de possiveis movimentos da peça, no caso Rei
-		@Override
-		public boolean[][] possibleMoves() {
-			// TODO Auto-generated method stub
-			boolean[][] matrizTemp = new boolean[getBoard().getRows()][getBoard().getColumns()];
-			return matrizTemp;
+	// Metodo de possiveis movimentos da peça, no caso Rei
+	@Override
+	public boolean[][] possibleMoves() {
+		// TODO Auto-generated method stub
+		boolean[][] matrizTemp = new boolean[getBoard().getRows()][getBoard().getColumns()];
+
+		Position p = new Position(0, 0);
+
+		// acima
+		p.setValues(position.getRow() - 1, position.getColumn());
+
+		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
+		if (getBoard().positionExists(p) && canMove(p)) {
+			matrizTemp[p.getRow()][p.getColumn()] = true;
 		}
+
+		return matrizTemp;
+	}
 }
