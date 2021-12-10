@@ -27,6 +27,17 @@ public class ChessMatch {
 		return mat;
 	}
 
+	public boolean[][] possibleMoves(ChessPosition sourcePosition) {
+		// Convertendo a posição de origem em posição
+		Position position = sourcePosition.toPosition();
+
+		// validando a posição
+		validateSourcePosition(position);
+
+		// Retornando os possivies movimentos da peça no tabuleiro
+		return board.piece(position).possibleMoves();
+	}
+
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
 		// Convertendo as posições para a posição
 		Position source = sourcePosition.toPosition();
@@ -40,15 +51,14 @@ public class ChessMatch {
 
 	}
 
-	
-
 	private void validateTargetPosition(Position source, Position target) {
 		// TODO Auto-generated method stub
-		// Se não existe um possivel movimento, da peça de origem para o destino, não vai poder mover.
-		if(!board.piece(source).possibleMove(target)) {
+		// Se não existe um possivel movimento, da peça de origem para o destino, não
+		// vai poder mover.
+		if (!board.piece(source).possibleMove(target)) {
 			throw new ChessException("O movimento da peca de origem nao pode ser movido para o destino!");
 		}
-		
+
 	}
 
 	public void validateSourcePosition(Position position) {

@@ -69,7 +69,7 @@ public class Board {
 	// nulo, é porque existe uma peça
 	public boolean therelsAPiece(Position position) {
 		if (!positionExists(position)) {
-			throw new BoardException("Posição não existe no tabuleiro!");
+			throw new BoardException("Posicao nao existe no tabuleiro!");
 		}
 		return piece(position) != null;
 	}
