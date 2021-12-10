@@ -43,6 +43,30 @@ public class King extends ChessPiece {
 			matrizTemp[p.getRow()][p.getColumn()] = true;
 		}
 
+		// abaixo
+		p.setValues(position.getRow() + 1, position.getColumn());
+
+		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
+		if (getBoard().positionExists(p) && canMove(p)) {
+			matrizTemp[p.getRow()][p.getColumn()] = true;
+		}
+
+		// esquerda
+		p.setValues(position.getRow(), position.getColumn() - 1);
+
+		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
+		if (getBoard().positionExists(p) && canMove(p)) {
+			matrizTemp[p.getRow()][p.getColumn()] = true;
+		}
+
+		// direita
+		p.setValues(position.getRow(), position.getColumn() + 1);
+
+		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
+		if (getBoard().positionExists(p) && canMove(p)) {
+			matrizTemp[p.getRow()][p.getColumn()] = true;
+		}
+
 		return matrizTemp;
 	}
 }
