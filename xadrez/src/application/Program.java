@@ -23,21 +23,21 @@ public class Program {
 				System.out.print("DIGITE A POSICAO DE ORIGEM DA PECA: ");
 				ChessPosition source = UI.readChessPostion(sc);
 
+				// imprimir as possivies posições de origens apartir da posição lida
+				boolean[][] possibleMoves = chessMatch.possibleMoves(source);
+				
+				// limpando a tela
+				UI.clearScreen();
+				
+				// imprimindo novamente o tabuleiro
+				UI.printBoard(chessMatch.getPieces(), possibleMoves);
+
 				System.out.println();
 
 				System.out.print("DIGITE A POSICAO DE DESTINO DA PECA: ");
 				ChessPosition target = UI.readChessPostion(sc);
 
 				ChessPiece capturePiece = chessMatch.performChessMove(source, target);
-				
-				//imprimir as possivies posições de origens apartir da posição lida
-				boolean[][] possibleMoves = chessMatch.possibleMoves(source);
-				
-				//limpando a tela
-				UI.clearScreen();
-				
-				//imprimindo novamente o tabuleiro
-				UI.printBoard(chessMatch.getPieces(), possibleMoves);
 
 			} catch (ChessException e) {
 				System.out.println(e.getMessage());
