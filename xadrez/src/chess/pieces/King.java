@@ -21,83 +21,66 @@ public class King extends ChessPiece {
 
 	// Metodo para verificar se a peça do rei é diferente de nula e a cor diferente
 	// do adversario
-	public boolean canMove(Position position) {
-		ChessPiece piece = (ChessPiece) getBoard().piece(position);
-		return piece != null && piece.getColor() != getColor();
+	private boolean canMove(Position position) {
+		ChessPiece p = (ChessPiece) getBoard().piece(position);
+		return p == null || p.getColor() != getColor();
 	}
 
 	// Metodo de possiveis movimentos da peça, no caso Rei
 	@Override
 	public boolean[][] possibleMoves() {
-		// TODO Auto-generated method stub
-		boolean[][] matrizTemp = new boolean[getBoard().getRows()][getBoard().getColumns()];
+		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
 
 		Position p = new Position(0, 0);
 
-		// acima
+		// above
 		p.setValues(position.getRow() - 1, position.getColumn());
-
-		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
 		if (getBoard().positionExists(p) && canMove(p)) {
-			matrizTemp[p.getRow()][p.getColumn()] = true;
+			mat[p.getRow()][p.getColumn()] = true;
 		}
 
-		// abaixo
+		// below
 		p.setValues(position.getRow() + 1, position.getColumn());
-
-		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
 		if (getBoard().positionExists(p) && canMove(p)) {
-			matrizTemp[p.getRow()][p.getColumn()] = true;
+			mat[p.getRow()][p.getColumn()] = true;
 		}
 
-		// esquerda
+		// left
 		p.setValues(position.getRow(), position.getColumn() - 1);
-
-		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
 		if (getBoard().positionExists(p) && canMove(p)) {
-			matrizTemp[p.getRow()][p.getColumn()] = true;
+			mat[p.getRow()][p.getColumn()] = true;
 		}
 
-		// direita
+		// right
 		p.setValues(position.getRow(), position.getColumn() + 1);
-
-		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
 		if (getBoard().positionExists(p) && canMove(p)) {
-			matrizTemp[p.getRow()][p.getColumn()] = true;
+			mat[p.getRow()][p.getColumn()] = true;
 		}
 
-		// diagonal pra cima a esquerda
+		// nw
 		p.setValues(position.getRow() - 1, position.getColumn() - 1);
-
-		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
 		if (getBoard().positionExists(p) && canMove(p)) {
-			matrizTemp[p.getRow()][p.getColumn()] = true;
+			mat[p.getRow()][p.getColumn()] = true;
 		}
 
-		// diagonal pra cima a direita
+		// ne
 		p.setValues(position.getRow() - 1, position.getColumn() + 1);
-
-		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
 		if (getBoard().positionExists(p) && canMove(p)) {
-			matrizTemp[p.getRow()][p.getColumn()] = true;
+			mat[p.getRow()][p.getColumn()] = true;
 		}
 
-		// diagonal pra baixo a esquerda
+		// sw
 		p.setValues(position.getRow() + 1, position.getColumn() - 1);
-
-		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
 		if (getBoard().positionExists(p) && canMove(p)) {
-			matrizTemp[p.getRow()][p.getColumn()] = true;
+			mat[p.getRow()][p.getColumn()] = true;
 		}
 
-		// diagonal pra baixo a direita
+		// se
 		p.setValues(position.getRow() + 1, position.getColumn() + 1);
-
-		// Checar se a posição existe no tabuleiro e se a posição pode mover(canMove)
 		if (getBoard().positionExists(p) && canMove(p)) {
-			matrizTemp[p.getRow()][p.getColumn()] = true;
+			mat[p.getRow()][p.getColumn()] = true;
 		}
 
-		return matrizTemp;
+		return mat;
 	}
 }
