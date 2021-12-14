@@ -70,7 +70,14 @@ public class ChessMatch {
 		} else {
 			check = false;
 		}
-		nextTurn();
+
+		// Testar se o oponente levou um xeque mate
+		if (testCheckMate(opponent(currentPlayer))) {
+			checkMate = true;
+		} else {
+			nextTurn();
+		}
+
 		return (ChessPiece) capturedPiece;
 	}
 
@@ -150,37 +157,38 @@ public class ChessMatch {
 			return false;
 		}
 
-		//Pegando todas as peças do tabuleiuro com o filtro da cor inforada no metodo!
-		List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChessPiece) x).getColor() == color).collect(Collectors.toList());
-		
+		// Pegando todas as peças do tabuleiuro com o filtro da cor inforada no metodo!
+		List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChessPiece) x).getColor() == color)
+				.collect(Collectors.toList());
+
 		for (Piece p : list) {
 			boolean[][] mat = p.possibleMoves();
-			for (int i = 0; i < board.getRows(); i++) { //percorrer as linhas da matriz
-				for (int j = 0; j < board.getColumns(); j++) { //percorrer as colunas da matriz!
-					if(mat[i][j]) {
-						//Dar um downcast na peça P com o ChessPiece, chamando o metodo toPosition;
-						Position source = ((ChessPiece)p).getChessPosition().toPosition(); 
-						//atribuindo o destino com uma nova posição com o alinha de i e coluna j
+			for (int i = 0; i < board.getRows(); i++) { // percorrer as linhas da matriz
+				for (int j = 0; j < board.getColumns(); j++) { // percorrer as colunas da matriz!
+					if (mat[i][j]) {
+						// Dar um downcast na peça P com o ChessPiece, chamando o metodo toPosition;
+						Position source = ((ChessPiece) p).getChessPosition().toPosition();
+						// atribuindo o destino com uma nova posição com o alinha de i e coluna j
 						Position target = new Position(i, j);
-						
-						//movimentando a peça p da origem para o destino
+
+						// movimentando a peça p da origem para o destino
 						Piece capturedPiece = makeMove(source, target);
-						
-						//Testar se ainda está em check
+
+						// Testar se ainda está em check
 						boolean testCheck = testCheck(color);
-						
-						//desfazes o movimento para não bugar o tabuleiro
+
+						// desfazes o movimento para não bugar o tabuleiro
 						undoMove(source, target, capturedPiece);
-						
-						//Se testCheck for falso, é pq tem como tirar o rei do check
-						if(!testCheck) {
+
+						// Se testCheck for falso, é pq tem como tirar o rei do check
+						if (!testCheck) {
 							return false; // pq nao está em check mate
 						}
-						
+
 					}
-					
+
 				}
-				
+
 			}
 		}
 		return true;

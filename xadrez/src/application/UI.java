@@ -99,10 +99,16 @@ public class UI {
 		printCapturedPieces(captured);
 		System.out.println();
 		System.out.println("Rodada: " + chessMatch.getTurn());
-		System.out.println("Aguardado o jogador das pecas " + chessMatch.getCurrentPlayer() + " jogar!");
-		if(chessMatch.getCheck()) {
-			System.out.println("JOGADOR DAS PECAS " + chessMatch.getCurrentPlayer()  + " ESTA EM XEQUE!");
+		if (!chessMatch.getCheckMate()) {
+			System.out.println("Aguardado o jogador das pecas " + chessMatch.getCurrentPlayer() + " jogar!");
+			if (chessMatch.getCheck()) {
+				System.out.println("JOGADOR DAS PECAS " + chessMatch.getCurrentPlayer() + " ESTA EM XEQUE!");
+			}
+		} else {
+			System.out.println("XEQUE-MATE!");
+			System.out.println("VENCEDOR: " + chessMatch.getCurrentPlayer());
 		}
+
 	}
 
 	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
