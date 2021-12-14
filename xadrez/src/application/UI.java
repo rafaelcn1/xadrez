@@ -1,7 +1,10 @@
 package application;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import chess.ChessMatch;
 import chess.ChessPiece;
@@ -55,7 +58,7 @@ public class UI {
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {
-		
+
 		System.out.println("XXX| A | B | C | D | E | F | G | H |XXX");
 		System.out.println("===|===============================|===");
 
@@ -89,11 +92,13 @@ public class UI {
 		}
 		System.out.print(" ");
 	}
-	
-	public static void printMatch(ChessMatch chessMatch) {
+
+	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
 		printBoard(chessMatch.getPieces());
 		System.out.println();
-		System.out.println("Vez: " + chessMatch.getTurn());
+		printCapturedPieces(captured);
+		System.out.println();
+		System.out.println("Rodada: " + chessMatch.getTurn());
 		System.out.println("Aguardado o jogador das pecas " + chessMatch.getCurrentPlayer() + " jogar!");
 	}
 
@@ -112,6 +117,31 @@ public class UI {
 		}
 		System.out.println("===|===============================|===");
 		System.out.println("XXX| A | B | C | D | E | F | G | H |XXX");
+
+	}
+
+	// Metodo para imprimir as peças capturadas
+	private static void printCapturedPieces(List<ChessPiece> captured) {
+
+		// Filtrando a lista, criando uma nova lista das peças brancas
+		List<ChessPiece> pecasBrancas = captured.stream().filter(x -> x.getColor() == Color.BRANCA)
+				.collect(Collectors.toList());
+
+		// Filtrando a lista, criando uma nova lista das peças pretas
+		List<ChessPiece> pecasPretas = captured.stream().filter(x -> x.getColor() == Color.PRETA)
+				.collect(Collectors.toList());
+
+		// Imprimindo na tela
+		System.out.println("Pecas Capturadas!");
+		System.out.print("Brancas: ");
+		System.out.println(ANSI_WHITE);
+		System.out.println(Arrays.toString(pecasBrancas.toArray()));
+		System.out.print(ANSI_RESET);
+
+		System.out.print("Pretas: ");
+		System.out.println(ANSI_YELLOW);
+		System.out.println(Arrays.toString(pecasPretas.toArray()));
+		System.out.print(ANSI_RESET);
 
 	}
 
