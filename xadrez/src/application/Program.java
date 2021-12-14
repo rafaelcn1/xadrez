@@ -18,7 +18,7 @@ public class Program {
 		while (true) {
 			try {
 				UI.clearScreen();
-				UI.printBoard(chessMatch.getPieces());
+				UI.printMatch(chessMatch);
 				System.out.println();
 				System.out.print("DIGITE A POSICAO DE ORIGEM DA PECA: ");
 				ChessPosition source = UI.readChessPostion(sc);
