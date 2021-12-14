@@ -16,7 +16,7 @@ public class ChessMatch {
 	private Board board;
 	private boolean check;
 	private boolean checkMate;
-	
+
 	private List<Piece> piecesOnTheBoard = new ArrayList<Piece>();
 	private List<Piece> capturedPieces = new ArrayList<Piece>();
 
@@ -34,11 +34,11 @@ public class ChessMatch {
 	public Color getCurrentPlayer() {
 		return currentPlayer;
 	}
-	
+
 	public boolean getCheck() {
 		return check;
 	}
-	
+
 	public boolean getCheckMate() {
 		return checkMate;
 	}
@@ -145,6 +145,47 @@ public class ChessMatch {
 		return false;
 	}
 
+	private boolean testCheckMate(Color color) {
+		if (!testCheck(color)) {
+			return false;
+		}
+
+		//Pegando todas as peças do tabuleiuro com o filtro da cor inforada no metodo!
+		List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChessPiece) x).getColor() == color).collect(Collectors.toList());
+		
+		for (Piece p : list) {
+			boolean[][] mat = p.possibleMoves();
+			for (int i = 0; i < board.getRows(); i++) { //percorrer as linhas da matriz
+				for (int j = 0; j < board.getColumns(); j++) { //percorrer as colunas da matriz!
+					if(mat[i][j]) {
+						//Dar um downcast na peça P com o ChessPiece, chamando o metodo toPosition;
+						Position source = ((ChessPiece)p).getChessPosition().toPosition(); 
+						//atribuindo o destino com uma nova posição com o alinha de i e coluna j
+						Position target = new Position(i, j);
+						
+						//movimentando a peça p da origem para o destino
+						Piece capturedPiece = makeMove(source, target);
+						
+						//Testar se ainda está em check
+						boolean testCheck = testCheck(color);
+						
+						//desfazes o movimento para não bugar o tabuleiro
+						undoMove(source, target, capturedPiece);
+						
+						//Se testCheck for falso, é pq tem como tirar o rei do check
+						if(!testCheck) {
+							return false; // pq nao está em check mate
+						}
+						
+					}
+					
+				}
+				
+			}
+		}
+		return true;
+	}
+
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition()); // Colocar a peça no tabuleiuro
 		piecesOnTheBoard.add(piece); // Toda vez que uma peça for adicionada no tabuleiro, será adicionado na lista
@@ -154,7 +195,6 @@ public class ChessMatch {
 		placeNewPiece('h', 7, new Rook(board, Color.BRANCA));
 		placeNewPiece('d', 1, new Rook(board, Color.BRANCA));
 		placeNewPiece('e', 2, new King(board, Color.BRANCA));
-	
 
 		placeNewPiece('b', 8, new Rook(board, Color.PRETA));
 		placeNewPiece('a', 8, new King(board, Color.PRETA));
