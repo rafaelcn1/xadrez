@@ -42,6 +42,7 @@ public class ChessMatch {
 		validateSourcePosition(source);
 		validateTargetPosition(source, target);
 		Piece capturedPiece = makeMove(source, target);
+		nextTurn();
 		return (ChessPiece) capturedPiece;
 	}
 
@@ -55,6 +56,10 @@ public class ChessMatch {
 	private void validateSourcePosition(Position position) {
 		if (!board.thereIsAPiece(position)) {
 			throw new ChessException("Nao existe peca na posicao de origem!");
+		}
+		
+		if(currentPlayer != ((ChessPiece) board.piece(position)).getColor()) {
+			throw new ChessException("A peca escolhida eh do adversario!");
 		}
 		if (!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("Nao existe movimentos possiveis para a peca escolhida!");
@@ -98,4 +103,8 @@ public class ChessMatch {
 		return board.piece(position).possibleMoves();
 	}
 
+	private void nextTurn() {
+		turn++;
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE; //mudando o jgador atual
+	}
 }
