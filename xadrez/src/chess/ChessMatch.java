@@ -50,6 +50,13 @@ public class ChessMatch {
 		validateSourcePosition(source);
 		validateTargetPosition(source, target);
 		Piece capturedPiece = makeMove(source, target);
+
+		if (testCheck(currentPlayer)) {
+			undoMove(source, target, capturedPiece);
+			throw new ChessException("jogada invalida! Voce nao pode se colocar em xeque!");
+		}
+		
+		
 		nextTurn();
 		return (ChessPiece) capturedPiece;
 	}
