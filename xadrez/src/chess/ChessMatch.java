@@ -111,6 +111,20 @@ public class ChessMatch {
 		throw new IllegalStateException("Nao existe um Rei da cor " + color + " no tabuleiro!");
 	}
 
+	private boolean testCheck(Color color) {
+		Position kingPosition = king(color).getChessPosition().toPosition();
+		List<Piece> opponentPieces = piecesOnTheBoard.stream()
+				.filter(x -> ((ChessPiece) x).getColor() == opponent(color)).collect(Collectors.toList());
+
+		for (Piece p : opponentPieces) {
+			boolean[][] mat = p.possibleMoves();
+			if (mat[kingPosition.getRow()][kingPosition.getColumn()]) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition()); // Colocar a peça no tabuleiuro
 		piecesOnTheBoard.add(piece); // Toda vez que uma peça for adicionada no tabuleiro, será adicionado na lista
