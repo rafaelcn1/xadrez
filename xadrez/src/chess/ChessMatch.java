@@ -7,7 +7,6 @@ import chess.pieces.King;
 import chess.pieces.Rook;
 
 public class ChessMatch {
-
 	private Board board;
 
 	public ChessMatch() {
@@ -17,70 +16,43 @@ public class ChessMatch {
 
 	public ChessPiece[][] getPieces() {
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
-
 		for (int i = 0; i < board.getRows(); i++) {
 			for (int j = 0; j < board.getColumns(); j++) {
 				mat[i][j] = (ChessPiece) board.piece(i, j);
 			}
 		}
-
 		return mat;
 	}
 
-	public boolean[][] possibleMoves(ChessPosition sourcePosition) {
-		// Convertendo a posição de origem em posição
-		Position position = sourcePosition.toPosition();
-
-		// validando a posição
-		validateSourcePosition(position);
-
-		// Retornando os possivies movimentos da peça no tabuleiro
-		return board.piece(position).possibleMoves();
-	}
-
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
-		// Convertendo as posições para a posição
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
-		// validando a poção
 		validateSourcePosition(source);
 		validateTargetPosition(source, target);
-		// Capturar a peça
-		Piece capturePiece = makeMove(source, target);
-		return (ChessPiece) capturePiece;
-
-	}
-
-	private void validateTargetPosition(Position source, Position target) {
-		// TODO Auto-generated method stub
-		// Se não existe um possivel movimento, da peça de origem para o destino, não
-		// vai poder mover.
-		if (!board.piece(source).possibleMove(target)) {
-			throw new ChessException("O movimento da peca de origem nao pode ser movido para o destino!");
-		}
-
-	}
-
-	public void validateSourcePosition(Position position) {
-		if (!board.therelsAPiece(position)) {
-			throw new ChessException("Nao existe peca na posicao de origem!");
-		}
-		// Acessando a peça do tabuleiro e chamando o metodo boolean para checar se
-		// existe possibilidade de mover ou não
-		if (!board.piece(position).isThereAnyPossibleMove()) {
-			throw new ChessException("Nao existe movimentacao possivel para a peca escolhida!");
-		}
+		Piece capturedPiece = makeMove(source, target);
+		return (ChessPiece) capturedPiece;
 	}
 
 	private Piece makeMove(Position source, Position target) {
-		// Retirando a peça da posição de origem
 		Piece p = board.removePiece(source);
-
-		// Removendo a possivel peça na posição de destino
-		Piece capturePiece = board.removePiece(target);
+		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(p, target);
-		return capturePiece;
+		return capturedPiece;
+	}
 
+	private void validateSourcePosition(Position position) {
+		if (!board.thereIsAPiece(position)) {
+			throw new ChessException("Nao existe peca na posicao de origem!");
+		}
+		if (!board.piece(position).isThereAnyPossibleMove()) {
+			throw new ChessException("Nao existe movimentos possiveis para a peca escolhida!");
+		}
+	}
+
+	private void validateTargetPosition(Position source, Position target) {
+		if (!board.piece(source).possibleMove(target)) {
+			throw new ChessException("A peca escolhida nao pode se mover para a posicao de destino!");
+		}
 	}
 
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
@@ -88,7 +60,6 @@ public class ChessMatch {
 	}
 
 	private void initialSetup() {
-		placeNewPiece('b', 6, new Rook(board, Color.WHITE));
 		placeNewPiece('c', 1, new Rook(board, Color.WHITE));
 		placeNewPiece('c', 2, new Rook(board, Color.WHITE));
 		placeNewPiece('d', 2, new Rook(board, Color.WHITE));
@@ -102,7 +73,17 @@ public class ChessMatch {
 		placeNewPiece('e', 7, new Rook(board, Color.BLACK));
 		placeNewPiece('e', 8, new Rook(board, Color.BLACK));
 		placeNewPiece('d', 8, new King(board, Color.BLACK));
-		placeNewPiece('h', 8, new King(board, Color.BLACK));
-
 	}
+
+	public boolean[][] possibleMoves(ChessPosition sourcePosition) {
+		// Convertendo a posição de origem em posição
+		Position position = sourcePosition.toPosition();
+
+		// validando a posição
+		validateSourcePosition(position);
+
+		// Retornando os possivies movimentos da peça no tabuleiro
+		return board.piece(position).possibleMoves();
+	}
+
 }

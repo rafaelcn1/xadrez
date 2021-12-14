@@ -25,10 +25,10 @@ public class Program {
 
 				// imprimir as possivies posições de origens apartir da posição lida
 				boolean[][] possibleMoves = chessMatch.possibleMoves(source);
-				
+
 				// limpando a tela
 				UI.clearScreen();
-				
+
 				// imprimindo novamente o tabuleiro
 				UI.printBoard(chessMatch.getPieces(), possibleMoves);
 

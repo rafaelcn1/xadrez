@@ -54,19 +54,20 @@ public class UI {
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {
-		System.out.println("XX| A | B | C | D | E | F | G | H |");
-		System.out.println("==|===============================|");
+		
+		System.out.println("XXX| A | B | C | D | E | F | G | H |XXX");
+		System.out.println("===|===============================|===");
 
 		for (int i = 0; i < pieces.length; i++) {
-			System.out.print(" " + ((i - 8) * -1));
+			System.out.print(" " + ((8 - i)) + " ");
 			for (int j = 0; j < pieces.length; j++) {
 				printPiece(pieces[i][j], false);
 			}
-			System.out.print("|");
+			System.out.print("| " + (8 - i));
 			System.out.println();
 		}
-		System.out.println("==|===============================|");
-		System.out.println("XX| A | B | C | D | E | F | G | H |");
+		System.out.println("===|===============================|===");
+		System.out.println("XXX| A | B | C | D | E | F | G | H |XXX");
 
 	}
 
@@ -90,19 +91,19 @@ public class UI {
 
 	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
 		// TODO Auto-generated method stub
-		System.out.println("XX| A | B | C | D | E | F | G | H |");
-		System.out.println("==|===============================|");
+		System.out.println("XXX| A | B | C | D | E | F | G | H |XXX");
+		System.out.println("===|===============================|===");
 
 		for (int i = 0; i < pieces.length; i++) {
-			System.out.print(" " + ((i - 8) * - 1));
+			System.out.print(" " + ((8 - i)) + " ");
 			for (int j = 0; j < pieces.length; j++) {
 				printPiece(pieces[i][j], possibleMoves[i][j]);
 			}
-			System.out.print("|");
+			System.out.print("| " + (8 - i));
 			System.out.println();
 		}
-		System.out.println("==|===============================|");
-		System.out.println("XX| A | B | C | D | E | F | G | H |");
+		System.out.println("===|===============================|===");
+		System.out.println("XXX| A | B | C | D | E | F | G | H |XXX");
 
 	}
 

@@ -30,7 +30,7 @@ public class Rook extends ChessPiece {
 		// Inicio da checagem posições e movimentar para cima
 		posicaoTemp.setValues(position.getRow() - 1, position.getColumn());
 
-		while (getBoard().positionExists(posicaoTemp) && !getBoard().therelsAPiece(posicaoTemp)) {
+		while (getBoard().positionExists(posicaoTemp) && !getBoard().thereIsAPiece(posicaoTemp)) {
 			matrizTemp[posicaoTemp.getRow()][posicaoTemp.getColumn()] = true;
 			// Fazer a linha subir mais uma posição para cima.
 			posicaoTemp.setRow(posicaoTemp.getRow() - 1);
@@ -45,7 +45,7 @@ public class Rook extends ChessPiece {
 		// Inicio da checagem posições e movimentar para baixo
 		posicaoTemp.setValues(position.getRow() + 1, position.getColumn());
 
-		while (getBoard().positionExists(posicaoTemp) && !getBoard().therelsAPiece(posicaoTemp)) {
+		while (getBoard().positionExists(posicaoTemp) && !getBoard().thereIsAPiece(posicaoTemp)) {
 			matrizTemp[posicaoTemp.getRow()][posicaoTemp.getColumn()] = true;
 			// Fazer a linha subir mais uma posição para cima.
 			posicaoTemp.setRow(posicaoTemp.getRow() + 1);
@@ -60,7 +60,7 @@ public class Rook extends ChessPiece {
 		// Inicio da checagem posições e movimentar a esquerda!
 		posicaoTemp.setValues(position.getRow(), position.getColumn() - 1);
 
-		while (getBoard().positionExists(posicaoTemp) && !getBoard().therelsAPiece(posicaoTemp)) {
+		while (getBoard().positionExists(posicaoTemp) && !getBoard().thereIsAPiece(posicaoTemp)) {
 			matrizTemp[posicaoTemp.getRow()][posicaoTemp.getColumn()] = true;
 			// Fazer a linha ir para a proxima posição para a esquerda.
 			posicaoTemp.setColumn(posicaoTemp.getColumn() - 1);
@@ -76,7 +76,7 @@ public class Rook extends ChessPiece {
 		// Inicio da checagem posições e movimentar a direita!
 		posicaoTemp.setValues(position.getRow(), position.getColumn() + 1);
 
-		while (getBoard().positionExists(posicaoTemp) && !getBoard().therelsAPiece(posicaoTemp)) {
+		while (getBoard().positionExists(posicaoTemp) && !getBoard().thereIsAPiece(posicaoTemp)) {
 			matrizTemp[posicaoTemp.getRow()][posicaoTemp.getColumn()] = true;
 			// Fazer a linha ir para a proxima posição para a direita.
 			posicaoTemp.setColumn(posicaoTemp.getColumn() + 1);
