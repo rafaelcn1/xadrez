@@ -17,7 +17,11 @@ public abstract class ChessPiece extends Piece {
 		return color;
 	}
 
-	//Metodo para testar se a cor da peça adversaria é diferente.	 
+	public ChessPosition getChessPosition() {
+		return ChessPosition.fromPosition(position);
+	}
+
+	// Metodo para testar se a cor da peça adversaria é diferente.
 	protected boolean isThereOpponentPiece(Position position) {
 		// Pegando a peça
 		ChessPiece pieceAdversaria = (ChessPiece) getBoard().piece(position);
