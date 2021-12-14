@@ -15,7 +15,8 @@ public class ChessMatch {
 	private Color currentPlayer; // Jogador atual
 	private Board board;
 	private boolean check;
-
+	private boolean checkMate;
+	
 	private List<Piece> piecesOnTheBoard = new ArrayList<Piece>();
 	private List<Piece> capturedPieces = new ArrayList<Piece>();
 
@@ -36,6 +37,10 @@ public class ChessMatch {
 	
 	public boolean getCheck() {
 		return check;
+	}
+	
+	public boolean getCheckMate() {
+		return checkMate;
 	}
 
 	public ChessPiece[][] getPieces() {
@@ -146,19 +151,13 @@ public class ChessMatch {
 	}
 
 	private void initialSetup() {
-		placeNewPiece('c', 1, new Rook(board, Color.BRANCA));
-		placeNewPiece('c', 2, new Rook(board, Color.BRANCA));
-		placeNewPiece('d', 2, new Rook(board, Color.BRANCA));
-		placeNewPiece('e', 2, new Rook(board, Color.BRANCA));
-		placeNewPiece('e', 1, new Rook(board, Color.BRANCA));
-		placeNewPiece('d', 1, new King(board, Color.BRANCA));
+		placeNewPiece('h', 7, new Rook(board, Color.BRANCA));
+		placeNewPiece('d', 1, new Rook(board, Color.BRANCA));
+		placeNewPiece('e', 2, new King(board, Color.BRANCA));
+	
 
-		placeNewPiece('c', 7, new Rook(board, Color.PRETA));
-		placeNewPiece('c', 8, new Rook(board, Color.PRETA));
-		placeNewPiece('d', 7, new Rook(board, Color.PRETA));
-		placeNewPiece('e', 7, new Rook(board, Color.PRETA));
-		placeNewPiece('e', 8, new Rook(board, Color.PRETA));
-		placeNewPiece('d', 8, new King(board, Color.PRETA));
+		placeNewPiece('b', 8, new Rook(board, Color.PRETA));
+		placeNewPiece('a', 8, new King(board, Color.PRETA));
 	}
 
 	public boolean[][] possibleMoves(ChessPosition sourcePosition) {
