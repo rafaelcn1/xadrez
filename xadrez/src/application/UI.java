@@ -101,7 +101,7 @@ public class UI {
 		System.out.println("Rodada: " + chessMatch.getTurn());
 		System.out.println("Aguardado o jogador das pecas " + chessMatch.getCurrentPlayer() + " jogar!");
 		if(chessMatch.getCheck()) {
-			System.out.println("XEQUE!");
+			System.out.println("JOGADOR DAS PECAS " + chessMatch.getCurrentPlayer()  + " ESTA EM XEQUE!");
 		}
 	}
 
