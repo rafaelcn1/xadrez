@@ -55,8 +55,12 @@ public class ChessMatch {
 			undoMove(source, target, capturedPiece);
 			throw new ChessException("jogada invalida! Voce nao pode se colocar em xeque!");
 		}
-		
-		
+
+		if (testCheck(opponent(currentPlayer))) {
+			check = true;
+		} else {
+			check = false;
+		}
 		nextTurn();
 		return (ChessPiece) capturedPiece;
 	}
