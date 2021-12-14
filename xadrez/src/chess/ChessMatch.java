@@ -13,6 +13,7 @@ public class ChessMatch {
 	private int turn; // Vez
 	private Color currentPlayer; // Jogador atual
 	private Board board;
+	private boolean check;
 
 	private List<Piece> piecesOnTheBoard = new ArrayList<Piece>();
 	private List<Piece> capturedPieces = new ArrayList<Piece>();
@@ -92,6 +93,10 @@ public class ChessMatch {
 		if (!board.piece(source).possibleMove(target)) {
 			throw new ChessException("A peca escolhida nao pode se mover para a posicao de destino!");
 		}
+	}
+	
+	private Color opponent(Color color) {
+		return (color == color.BRANCA ? color.PRETA : color.BRANCA);
 	}
 
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
