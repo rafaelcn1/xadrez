@@ -21,7 +21,6 @@ public class Pawn extends ChessPiece {
 			p.setValues(position.getRow() - 1, position.getColumn());
 			// Se a possição acima dele existir e estiver vazia
 			if (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
-
 				mat[p.getRow()][p.getColumn()] = true;
 			}
 
