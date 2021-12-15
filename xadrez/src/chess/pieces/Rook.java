@@ -25,7 +25,6 @@ public class Rook extends ChessPiece {
 		boolean[][] matrizTemp = new boolean[getBoard().getRows()][getBoard().getColumns()];
 		Position posicaoTemp = new Position(0, 0);
 
-		// Setar a posi da peça, na posição temporaria
 
 		// Inicio da checagem posições e movimentar para cima
 		posicaoTemp.setValues(position.getRow() - 1, position.getColumn());
