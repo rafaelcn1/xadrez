@@ -22,6 +22,8 @@ public class ChessMatch {
 	private boolean checkMate;
 	private ChessPiece enPassantVulnerable;
 
+	private ChessPiece promoted;
+
 	private List<Piece> piecesOnTheBoard = new ArrayList<Piece>();
 	private List<Piece> capturedPieces = new ArrayList<Piece>();
 
@@ -52,6 +54,10 @@ public class ChessMatch {
 		return enPassantVulnerable;
 	}
 
+	public ChessPiece getPromoted() {
+		return promoted;
+	}
+
 	public ChessPiece[][] getPieces() {
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
 		for (int i = 0; i < board.getRows(); i++) {
@@ -76,6 +82,16 @@ public class ChessMatch {
 
 		ChessPiece movedPiece = (ChessPiece) board.piece(target);
 
+		// Teste de jogada de promoção de peça
+		promoted = null;
+		if (movedPiece instanceof Pawn) {
+			if (movedPiece.getColor() == Color.BRANCA && target.getRow() == 0
+					|| movedPiece.getColor() == Color.PRETA && target.getRow() == 7) {
+				promoted = (ChessPiece) board.piece(target);
+				promoted = replacePromotedPiece("Q");
+			}
+		}
+
 		if (testCheck(opponent(currentPlayer))) {
 			check = true;
 		} else {
@@ -99,6 +115,36 @@ public class ChessMatch {
 		}
 
 		return (ChessPiece) capturedPiece;
+	}
+
+	public ChessPiece replacePromotedPiece(String type) {
+		if (promoted == null) {
+			throw new IllegalStateException("Nao tem peca para ser promovida!");
+		}
+
+		if (!type.equals("B") && !type.equals("C") && !type.equals("R") && !type.equals("Q")) {
+			return promoted;
+		}
+
+		Position pos = promoted.getChessPosition().toPosition();
+		Piece p = board.removePiece(pos);
+		piecesOnTheBoard.remove(p);
+
+		ChessPiece newPiece = newPiece(type, promoted.getColor());
+		board.placePiece(newPiece, pos);
+		piecesOnTheBoard.add(newPiece);
+
+		return newPiece;
+	}
+
+	private ChessPiece newPiece(String type, Color color) {
+		if (type.equals("B"))
+			return new Bishop(board, color);
+		if (type.equals("C"))
+			return new Knight(board, color);
+		if (type.equals("Q"))
+			return new Queen(board, color);
+		return new Rook(board, color);
 	}
 
 	private Piece makeMove(Position source, Position target) {
@@ -288,39 +334,39 @@ public class ChessMatch {
 	}
 
 	private void initialSetup() {
-		placeNewPiece('d', 1, new Queen(board, Color.BRANCA));
-		placeNewPiece('a', 1, new Rook(board, Color.BRANCA));
-		placeNewPiece('c', 1, new Bishop(board, Color.BRANCA));
-		placeNewPiece('f', 1, new Bishop(board, Color.BRANCA));
-		placeNewPiece('b', 1, new Knight(board, Color.BRANCA));
-		placeNewPiece('g', 1, new Knight(board, Color.BRANCA));
-		placeNewPiece('h', 1, new Rook(board, Color.BRANCA));
-		placeNewPiece('a', 2, new Pawn(board, Color.BRANCA, this));
-		placeNewPiece('b', 2, new Pawn(board, Color.BRANCA, this));
-		placeNewPiece('c', 2, new Pawn(board, Color.BRANCA, this));
-		placeNewPiece('d', 2, new Pawn(board, Color.BRANCA, this));
-		placeNewPiece('e', 2, new Pawn(board, Color.BRANCA, this));
-		placeNewPiece('f', 2, new Pawn(board, Color.BRANCA, this));
-		placeNewPiece('g', 2, new Pawn(board, Color.BRANCA, this));
-		placeNewPiece('h', 2, new Pawn(board, Color.BRANCA, this));
+		placeNewPiece('e', 8, new King(board, Color.PRETA, this));
 		placeNewPiece('e', 1, new King(board, Color.BRANCA, this));
 
-		placeNewPiece('b', 8, new Knight(board, Color.PRETA));
-		placeNewPiece('g', 8, new Knight(board, Color.PRETA));
-		placeNewPiece('c', 8, new Bishop(board, Color.PRETA));
-		placeNewPiece('f', 8, new Bishop(board, Color.PRETA));
-		placeNewPiece('a', 8, new Rook(board, Color.PRETA));
-		placeNewPiece('h', 8, new Rook(board, Color.PRETA));
-		placeNewPiece('d', 8, new Queen(board, Color.PRETA));
-		placeNewPiece('a', 7, new Pawn(board, Color.PRETA, this));
-		placeNewPiece('b', 7, new Pawn(board, Color.PRETA, this));
-		placeNewPiece('c', 7, new Pawn(board, Color.PRETA, this));
-		placeNewPiece('d', 7, new Pawn(board, Color.PRETA, this));
-		placeNewPiece('e', 7, new Pawn(board, Color.PRETA, this));
-		placeNewPiece('f', 7, new Pawn(board, Color.PRETA, this));
-		placeNewPiece('g', 7, new Pawn(board, Color.PRETA, this));
-		placeNewPiece('h', 7, new Pawn(board, Color.PRETA, this));
-		placeNewPiece('e', 8, new King(board, Color.PRETA, this));
+		placeNewPiece('a', 7, new Pawn(board, Color.BRANCA, this));
+
+		/*
+		 * placeNewPiece('d', 1, new Queen(board, Color.BRANCA)); placeNewPiece('a', 1,
+		 * new Rook(board, Color.BRANCA)); placeNewPiece('c', 1, new Bishop(board,
+		 * Color.BRANCA)); placeNewPiece('f', 1, new Bishop(board, Color.BRANCA));
+		 * placeNewPiece('b', 1, new Knight(board, Color.BRANCA)); placeNewPiece('g', 1,
+		 * new Knight(board, Color.BRANCA)); placeNewPiece('h', 1, new Rook(board,
+		 * Color.BRANCA)); placeNewPiece('a', 2, new Pawn(board, Color.BRANCA, this));
+		 * placeNewPiece('b', 2, new Pawn(board, Color.BRANCA, this));
+		 * placeNewPiece('c', 2, new Pawn(board, Color.BRANCA, this));
+		 * placeNewPiece('d', 2, new Pawn(board, Color.BRANCA, this));
+		 * placeNewPiece('e', 2, new Pawn(board, Color.BRANCA, this));
+		 * placeNewPiece('f', 2, new Pawn(board, Color.BRANCA, this));
+		 * placeNewPiece('g', 2, new Pawn(board, Color.BRANCA, this));
+		 * placeNewPiece('h', 2, new Pawn(board, Color.BRANCA, this));
+		 * 
+		 * placeNewPiece('b', 8, new Knight(board, Color.PRETA)); placeNewPiece('g', 8,
+		 * new Knight(board, Color.PRETA)); placeNewPiece('c', 8, new Bishop(board,
+		 * Color.PRETA)); placeNewPiece('f', 8, new Bishop(board, Color.PRETA));
+		 * placeNewPiece('a', 8, new Rook(board, Color.PRETA)); placeNewPiece('h', 8,
+		 * new Rook(board, Color.PRETA)); placeNewPiece('d', 8, new Queen(board,
+		 * Color.PRETA)); placeNewPiece('a', 7, new Pawn(board, Color.PRETA, this));
+		 * placeNewPiece('b', 7, new Pawn(board, Color.PRETA, this)); placeNewPiece('c',
+		 * 7, new Pawn(board, Color.PRETA, this)); placeNewPiece('d', 7, new Pawn(board,
+		 * Color.PRETA, this)); placeNewPiece('e', 7, new Pawn(board, Color.PRETA,
+		 * this)); placeNewPiece('f', 7, new Pawn(board, Color.PRETA, this));
+		 * placeNewPiece('g', 7, new Pawn(board, Color.PRETA, this)); placeNewPiece('h',
+		 * 7, new Pawn(board, Color.PRETA, this));
+		 */
 	}
 
 	public boolean[][] possibleMoves(ChessPosition sourcePosition) {

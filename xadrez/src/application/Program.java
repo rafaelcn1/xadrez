@@ -40,9 +40,20 @@ public class Program {
 				ChessPosition target = UI.readChessPostion(sc);
 
 				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
-				
-				if(capturedPiece != null) {
+
+				if (capturedPiece != null) {
 					captured.add(capturedPiece);
+				}
+
+				if (chessMatch.getPromoted() != null) {
+					System.out.println("Digite a letra da peca promovida (B/C/R/Q): ");
+					String type = sc.nextLine().toUpperCase();
+					while (!type.equals("B") && !type.equals("C") && !type.equals("R") && !type.equals("Q")) {
+						System.out.println("Valor invalido! Digite a letra da peca promovida (B/C/R/Q): ");
+						type = sc.nextLine().toUpperCase();
+					}
+					chessMatch.replacePromotedPiece(type);
+
 				}
 
 			} catch (ChessException e) {
